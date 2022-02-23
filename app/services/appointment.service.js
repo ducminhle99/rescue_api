@@ -1,5 +1,6 @@
 const db = require('../models/db');
 const notificationService = require('./notification.service')
+const StatisticService = require('./shopStatistic.service')
 const Appointment = db.Appointment;
 const User = db.User;
 const Shop = db.RepairShop;
@@ -10,7 +11,7 @@ const createAppointment = async (req)=>{
         time: req.body.time,
         shopId: req.body.shopId,
         userId: userId,
-        finish: false
+        isConfirmed: false
     })
     await appointment.save();
     await notificationService.createUtoS('Khách đặt lịch',appointment);
@@ -40,13 +41,16 @@ const getByUserId = async (req) => {
     },)
     return appointment;
 }
-const finishAppointment = async (id) => {
+const confirmAppointment = async (id) => {
     const appointment = await Appointment.findByPk(id,{
         include: {model: User,attributes:['id','fullName','phone','email','imageUrl']}
     });
-    appointment.finish = true;
+    if(!appointment) throw 'appointment not found'
+    appointment.isConfirmed = true;
     await appointment.save();
-
+    const shopId = appointment.shopId;
+    await StatisticService.increaseAppointment(shopId);
+    await notificationService.createStoU('Đã xác nhận đặt lịch',appointment);
     return appointment;
 }
 const deleteAppointment = async (id) => {
@@ -59,6 +63,6 @@ module.exports ={
     getById,
     getByShopId,
     getByUserId,
-    finishAppointment,
+    confirmAppointment,
     deleteAppointment
 }

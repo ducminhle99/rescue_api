@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        finish:{
+        isConfirmed:{
             type: DataTypes.BOOLEAN,
             default:false
         }

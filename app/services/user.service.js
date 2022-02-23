@@ -1,5 +1,6 @@
 const db = require('../models/db');
 const User = db.User;
+const Role = db.Role;
 const ReairShop = db.RepairShop;
 const UpgradeRequest = db.UpgradeRequest;
 
@@ -23,6 +24,13 @@ const getAll = async (req) => {
         offset: offset
     });
     return PaginationHelper.getPagingData(userList,page,limit)
+}
+const getAllAdmin = async () =>{
+    const list = await User.findAll({
+        attributes: ['id','fullName','email','imageUrl','phone'],
+        include: Role
+    })
+    return list;
 }
 
 
@@ -88,5 +96,6 @@ module.exports = {
     updateUserRole,
     upgradeUser,
     getCurrentUser,
-    getShopByUser
+    getShopByUser,
+    getAllAdmin
 }

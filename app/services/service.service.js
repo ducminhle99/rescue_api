@@ -1,4 +1,4 @@
-
+const statisticService = require('./shopStatistic.service');
 const db = require('../models/db');
 const Service = db.Service;
 const RepairShop = db.RepairShop;
@@ -27,9 +27,12 @@ const createService = async (req) =>{
         description: req.body.description,
         shopId: shop.id
     })
-    await service.addCategories(req.body.catId)
-    console.log(service);
+    await service.addCategories(req.body.catId);
+    await shop.addCategories(req.body.catId);
+    // console.log(service);
     await service.save();
+    await shop.save();
+    await statisticService.increaseService(shop.id);
     return service;
 }
 const deleteService = async (req) => {
@@ -44,6 +47,7 @@ const deleteService = async (req) => {
     const service = await Service.findByPk(serviceId);
     if(service.shopId == shop.id ) service.destroy();
     else throw 'cannot find this service';
+    await statisticService.decreaseService(shop.id);
     return 'ok';
 
 }

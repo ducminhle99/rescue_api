@@ -39,6 +39,7 @@ db.UpgradeRequest = require('./upgradeRequest.model')(sequelize);
 db.Category = require('./category.model')(sequelize);
 db.Appointment = require('./appointment.model')(sequelize);
 db.Notification = require('./notification.model')(sequelize);
+db.ShopStatistic = require('./shopStatistic.model')(sequelize);
 
 // user - role
 db.Role.belongsToMany(db.User, {
@@ -154,6 +155,14 @@ db.RepairShop.hasMany(db.Appointment,{
     foreignKey:'shopId'
 })
 db.Appointment.belongsTo(db.RepairShop,{
+    foreignKey:'shopId'
+})
+
+// shopStatistic - shop
+db.RepairShop.hasOne(db.ShopStatistic,{
+    foreignKey:'shopId'
+})
+db.ShopStatistic.belongsTo(db.RepairShop,{
     foreignKey:'shopId'
 })
 

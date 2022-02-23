@@ -12,20 +12,21 @@ app.use(fileUpload({
     createParentPath: true
 }));
 const corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "http://localhost:3000"
 };
 
 app.use(cors(corsOptions));
-
+// app.use(cors());
 app.use(morgan("tiny"));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use((req,res,next)=>{
     res.header(
-        "Access-Control-Allow-Headers",
-        "x-access-token, Origin, Content-Type, Accept",
+        "Access-Control-Expose-Headers",
+        "x-access-token, Origin, Content-Type, Accept,Content-Range",
     );
+    res.header('Content-Range','users 0-20/50')
     next();
 })
 

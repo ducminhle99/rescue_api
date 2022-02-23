@@ -1,4 +1,5 @@
 const shopService = require("../../services/shop.service");
+const shopStatisticService = require("../../services/shopStatistic.service");
 const appointmentService = require("../../services/appointment.service");
 
 exports.getAllShop = (req,res,next) =>{
@@ -37,13 +38,18 @@ exports.fetchAppointment = (req, res, next) => {
         res.status(200).json(data);
     }).catch(next)
 }
-exports.finishAppointment = (req, res, next) => {
-    appointmentService.finishAppointment(req.params.id).then((data) => {
+exports.confirmAppointment = (req, res, next) => {
+    appointmentService.confirmAppointment(req.params.id).then((data) => {
         res.status(200).json(data);
     }).catch(next)
 }
 exports.deleteAppointment = (req, res, next) => {
     appointmentService.deleteAppointment(req.params.id).then((data) => {
         res.status(200).json(data);
+    }).catch(next)
+}
+exports.getStatistic = (req,res,next) =>{
+    shopStatisticService.getStatistic(req.params.id).then((data) =>{
+        res.status(200).json(data)
     }).catch(next)
 }

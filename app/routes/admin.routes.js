@@ -5,10 +5,15 @@ const router = app.Router();
 const schema = require('../helpers/validateSchema')
 const listController = require("../controllers/admin/userList.controller");
 const userCrudController = require("../controllers/admin/userCrud.controller")
-const categoryController = require("../controllers/admin/category.controller")
+const shopController = require("../controllers/admin/shopCrud.controller")
 
 //routes user info
 router.get("/users",[authJwt.verifyToken,authJwt.isAdmin],listController.getAllUser);
+// test react-admin
+// router.get("/users",listController.getAllUser);
+router.get("/users/:id",[authJwt.verifyToken,authJwt.isAdmin],userCrudController.getById);
+router.get("/repairShop/:id",shopController.getById);
+router.get("/repairShop",[authJwt.verifyToken,authJwt.isAdmin],shopController.getAll);
 router.put("/users",[authJwt.verifyToken,authJwt.isAdmin],userCrudController.updateUserRole);
 
 

@@ -3,6 +3,7 @@ const RepairShop = db.RepairShop;
 const Address = db.Address;
 const Category = db.Category;
 const Service = db.Service;
+const ShopStatistic = db.ShopStatistic;
 const userService = require('./user.service')
 const PaginationHelper = require('../helpers/paginationHelper');
 const addressService = require("./address.service");
@@ -37,7 +38,16 @@ const createShop = async (req) =>{
     shop.userId= user.id;
     user.setRoles([2,3]);
     await user.save();
+    await shop.addCategories(1);
     await shop.save();
+    await ShopStatistic.create({
+        shopId: shop.id,
+        rating: 0,
+        review:0,
+        numberOfService:0,
+        numberOfRescue:0,
+        numberOfAppointment:0
+    })
     return shop;
 }
 const getCurrentShop = async (req) =>{
@@ -57,7 +67,7 @@ module.exports ={
     getById,
     createShop,
     getCurrentShop,
-    changeAbout
+    changeAbout,
 }
 
 

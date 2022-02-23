@@ -5,3 +5,8 @@ exports.updateUserRole = (req,res,next) =>{
         res.status(200).json(user)
     }).catch(next)
 }
+exports.getById = (req,res,next) =>{
+    userService.getById(req.params.id).then(user => {
+        res.status(200).json(user)
+    }).catch(next)
+}

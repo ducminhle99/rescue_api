@@ -1,12 +1,12 @@
 const userService = require('./user.service')
 const addressService = require('./address.service')
+const statisticService = require('./shopStatistic.service')
 const shopService = require('./shop.service');
 const notificationService = require('./notification.service');
 const db = require('../models/db');
 const Rescue = db.Rescue;
 const Address = db.Address;
 const User = db.User;
-const getDistance = require('./../helpers/getDistance');
 
 const createListRescue = async (req) =>{
     const userId = req.userId;
@@ -77,6 +77,7 @@ const getById = async (id) =>{
 const acceptRescue = async (id) => {
     const rescue = await  Rescue.findByPk(id);
     if(!rescue) throw 'rescue not exists'
+    if(rescue.isClose) return 'ok';
     rescue.isClose = true;
     await rescue.save();
     const userId = rescue.userId;
@@ -92,6 +93,7 @@ const acceptRescue = async (id) => {
             id: listId
         }
     })
+    await statisticService.increaseRescue(rescue.shopId);
     await notificationService.createStoU('Yêu cầu cứu hộ được tiếp nhận',rescue);
     return 'ok';
 }

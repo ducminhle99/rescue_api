@@ -4,7 +4,6 @@ const db = require('../models/db');
 const Notification = db.Notification;
 const RepairShop = db.RepairShop;
 const User = db.User;
-const Expo = require('expo-server-sdk')
 const axios = require('axios');
 const url = 'https://api.expo.dev/v2/push/send';
 

@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
                 allowNull: false
             },
             price: {
-                type: DataTypes.STRING,
+                type: DataTypes.BIGINT,
             },
             description: {
                 type: DataTypes.TEXT,
