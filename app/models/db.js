@@ -40,6 +40,7 @@ db.Category = require('./category.model')(sequelize);
 db.Appointment = require('./appointment.model')(sequelize);
 db.Notification = require('./notification.model')(sequelize);
 db.ShopStatistic = require('./shopStatistic.model')(sequelize);
+db.Rating = require('./rating.model')(sequelize);
 
 // user - role
 db.Role.belongsToMany(db.User, {
@@ -166,6 +167,21 @@ db.ShopStatistic.belongsTo(db.RepairShop,{
     foreignKey:'shopId'
 })
 
+// rating - shop
+db.RepairShop.hasMany(db.Rating,{
+    foreignKey: 'shopId'
+})
+db.Rating.belongsTo(db.RepairShop,{
+    foreignKey:'shopId'
+})
+
+// rating - user
+db.User.hasMany(db.Rating,{
+    foreignKey:'userId'
+})
+db.Rating.belongsTo(db.User,{
+    foreignKey:'userId'
+})
 module.exports = db;
 
 

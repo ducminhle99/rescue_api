@@ -6,6 +6,7 @@ const UpgradeRequest = db.UpgradeRequest;
 
 const PaginationHelper = require('../helpers/paginationHelper')
 const fileService = require('./file.service');
+const {use} = require("express/lib/router");
 const getById = async (id) => {
     const user = await getUser(id);
     return user;
@@ -87,6 +88,12 @@ const getShopByUser = async (req) =>{
     if (!user) throw 'user not found';
     return user;
 }
+const deleteUser =async (id) => {
+    console.log('delete user by id', id)
+  const user = await User.findByPk(id);
+  await user.destroy();
+  return 'ok';
+}
 module.exports = {
     getById,
     getAll,
@@ -97,5 +104,6 @@ module.exports = {
     upgradeUser,
     getCurrentUser,
     getShopByUser,
-    getAllAdmin
+    getAllAdmin,
+    deleteUser
 }

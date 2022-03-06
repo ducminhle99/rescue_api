@@ -6,6 +6,7 @@ const schema = require('../helpers/validateSchema')
 const controller = require("../controllers/user/UserCrud.controller");
 const appointmentController = require('../controllers/appointment/Appointment.controller')
 const notiController = require('../controllers/user/NotiCrud.controller')
+const ratingController = require('../controllers/user/RatingCrud.controller')
 //routes user info
 router.get("/",controller.getAllUser)
 router.get("/current",[authJwt.verifyToken],controller.getCurrentUser)
@@ -16,13 +17,11 @@ router.post("/upgrade",[authJwt.verifyToken,authJwt.isUser],controller.upgradeUs
 router.post("/appointments",[authJwt.verifyToken],appointmentController.Create)
 router.get("/appointments",[authJwt.verifyToken],appointmentController.fetchByUser)
 router.get("/notifications",[authJwt.verifyToken],notiController.getAll)
+// ratings
+router.post("/ratings",[authJwt.verifyToken],ratingController.createRating)
+router.get("/ratings/:id",ratingController.getShopRating)
 
 router.get("/:id",controller.getUserDetail)
-
-
-
-
-
 
 
 module.exports = router;

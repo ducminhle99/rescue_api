@@ -32,25 +32,26 @@ const decreaseService = async (id) =>{
     })
     await statistic.decrement('numberOfService',{ by: 1 })
 }
-const increaseReview = async (id) =>{
+
+const updateRating = async (id, list) => {
     const statistic = await ShopStatistic.findOne({
         where : {shopId: id}
     })
-    await statistic.increment('review',{ by: 1 })
-}
-const increaseRating = async (id) =>{
-    const statistic = await ShopStatistic.findOne({
-        where : {shopId: id}
+    const total = list.length;
+    const rating = list.reduce((s,r)=>s+r.rating, 0)/total;
+    statistic.set({
+        rating: rating,
+        review: total
     })
-    await statistic.increment('rating',{ by: 1 })
+    await statistic.save();
+    return 'ok';
 }
 
 module.exports ={
     getStatistic,
-    increaseRating,
-    increaseReview,
     increaseService,
     decreaseService,
     increaseAppointment,
-    increaseRescue
+    increaseRescue,
+    updateRating,
 }

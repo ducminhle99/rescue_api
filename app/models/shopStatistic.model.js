@@ -4,10 +4,9 @@ module.exports = (sequelize) => {
         shopId:{
             type:DataTypes.INTEGER,
             allowNull: false,
-
         },
         rating:{
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
             default: 0
         },
         review:{

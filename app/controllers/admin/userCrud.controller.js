@@ -10,3 +10,8 @@ exports.getById = (req,res,next) =>{
         res.status(200).json(user)
     }).catch(next)
 }
+exports.deleteById = (req,res,next) =>{
+    userService.deleteUser(req.params.id).then(user =>{
+        res.status(200).json(user)
+    }).catch(next)
+}
