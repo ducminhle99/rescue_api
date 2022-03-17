@@ -10,6 +10,11 @@ exports.getAll = (req, res, next) => {
         res.status(200).json(categories)
     }).catch(next)
 }
+exports.getOne = (req, res, next) => {
+    categoryService.getById(req.params.id).then(cat => {
+        res.status(200).json(cat)
+    }).catch(next)
+}
 exports.updateCategory = (req, res, next) => {
     categoryService.updateCategory(req).then(category => {
         res.status(200).json(category)
@@ -20,4 +25,5 @@ exports.deleteCategory = (req, res, next) => {
         res.status(200).json('delete category ok')
     }).catch(next)
 }
+
 

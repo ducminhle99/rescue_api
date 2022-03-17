@@ -38,7 +38,7 @@ const createShop = async (req) =>{
     shop.userId= user.id;
     user.setRoles([2,3]);
     await user.save();
-    await shop.addCategories(1);
+    // await shop.addCategories(1);
     await shop.save();
     await ShopStatistic.create({
         shopId: shop.id,

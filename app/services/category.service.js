@@ -21,15 +21,20 @@ const updateCategory = async (req)=>{
     return category;
 }
 const deleteCategory = async (req)=>{
-    const category = await Category.destroy({
+    await Category.destroy({
         where: {
             id: req.params.id
         }
     })
+}
+const getById = async (id) =>{
+    const cat = await Category.findByPk(id);
+    return cat;
 }
 module.exports = {
     createCategory,
     getAll,
     updateCategory,
     deleteCategory,
+    getById
 }

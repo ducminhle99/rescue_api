@@ -12,10 +12,11 @@ app.use(fileUpload({
     createParentPath: true
 }));
 const corsOptions = {
-    origin: "http://localhost:3000"
+    // origin: "http://localhost:3000"
+    origin: "https://rescue-admin.herokuapp.com"
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 // app.use(cors());
 app.use(morgan("tiny"));
 
