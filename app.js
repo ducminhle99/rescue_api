@@ -44,7 +44,7 @@ app.use("/api/categories",require('./app/routes/category.routes'));
 
 app.use("/api/test",require('./app/routes/test.route'))
 app.use(errorHandler)
-
-app.listen(5000,'0.0.0.0', () =>{
+const port = process.env.PORT || 5000;
+app.listen(port,'0.0.0.0', () =>{
     console.log('server is running... ')
 })
