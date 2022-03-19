@@ -20,7 +20,7 @@ module.exports.sendConfirmationEmail = (name, email, token) => {
         html: `<h1>Email Confirmation</h1>
         <h2>Hello ${name}</h2>
         <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-        <a href=http://localhost:5000/api/auth/confirm/${token}> Click here</a>
+        <a href=https://rescueapi.herokuapp.com/api/auth/confirm/${token}> Click here</a>
         </div>`,
     }).catch(err => console.log(err));
 };
